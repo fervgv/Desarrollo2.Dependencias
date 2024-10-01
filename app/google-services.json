@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "550966256418",
+    "firebase_url": "https://desarrollokotlin-195af-default-rtdb.firebaseio.com",
+    "project_id": "desarrollokotlin-195af",
+    "storage_bucket": "desarrollokotlin-195af.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:550966256418:android:da3968820ce883c9057b7b",
+        "android_client_info": {
+          "package_name": "com.example.desarrollo2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgX7QytRborI3XPUH2kN7YcEKz9QBiQKc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
