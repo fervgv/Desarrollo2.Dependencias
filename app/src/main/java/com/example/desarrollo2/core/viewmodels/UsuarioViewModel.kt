@@ -4,9 +4,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.desarrollo2.core.models.Usuario
 import com.example.desarrollo2.core.repositories.IUsuarioRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class UsuarioViewModel(private val repository: IUsuarioRepository) : ViewModel() {
+@HiltViewModel
+class UsuarioViewModel @Inject constructor(
+    private val repository: IUsuarioRepository
+) : ViewModel() {
 
     fun registrarUsuario(usuario: Usuario) {
         viewModelScope.launch {

@@ -13,7 +13,12 @@
           "package_name": "com.example.desarrollo2"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "550966256418-ga4t88m16og6uv5e3nhrqhtpnq5ra6v6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCgX7QytRborI3XPUH2kN7YcEKz9QBiQKc"
@@ -21,7 +26,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "550966256418-ga4t88m16og6uv5e3nhrqhtpnq5ra6v6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
