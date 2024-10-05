@@ -118,4 +118,10 @@ dependencies {
 
     //navegacion entre pantallas de compose
     implementation ("androidx.navigation:navigation-compose:2.7.2")
+
+    // Verifica la última versión disponible
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3") // Verifica la última versión disponible
+
+
+
 }
