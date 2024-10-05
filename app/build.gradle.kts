@@ -76,6 +76,8 @@ dependencies {
     implementation (libs.androidx.material)
     implementation (libs.ui.tooling.preview)
     implementation (libs.androidx.activity.compose)
+    //implementa livedata
+    implementation(libs.androidx.runtime.livedata)
     // Testing Dependencies
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -114,5 +116,6 @@ dependencies {
 
     implementation("com.google.android.gms:play-services-location:21.3.0")
 
-
+    //navegacion entre pantallas de compose
+    implementation ("androidx.navigation:navigation-compose:2.7.2")
 }
