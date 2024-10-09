@@ -1,5 +1,4 @@
 package com.example.desarrollo2.ui.screens
-
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -36,16 +35,19 @@ import androidx.navigation.compose.rememberNavController
 import com.example.desarrollo2.core.viewmodels.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+
 
 @AndroidEntryPoint
 class LoginActivity : ComponentActivity() {
-    // Usar el ViewModel de la pantalla de inicio de sesión
     private val loginViewModel: LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            // Llamar a la función que contiene la navegación de la app
             AppNavigation(loginViewModel)
         }
     }
@@ -53,36 +55,33 @@ class LoginActivity : ComponentActivity() {
     @Composable
     fun AppNavigation(viewModel: LoginViewModel) {
         val navController = rememberNavController()
-
-        // Configurar la navegación
         NavHost(navController = navController, startDestination = "login") {
             composable("login") {
-                // Pasar el viewModel a LoginScreen
-                LoginScreen(viewModel)
+                LoginScreen(viewModel, navController)
             }
-            // Aquí puedes agregar más rutas a otras pantallas
-            // Ejemplo:
+            // Aquí puedes agregar más rutas a otras pantallas, como el registro
             // composable("registro") { RegistroScreen(viewModel) }
         }
     }
 
     @Composable
-    fun LoginScreen(viewModel: LoginViewModel) {
+    fun LoginScreen(viewModel: LoginViewModel, navController: NavController) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp)
         ) {
-            Login(Modifier.align(Alignment.Center), viewModel)
+            Login(Modifier.align(Alignment.Center), viewModel, navController)
         }
     }
 
     @Composable
-    fun Login(modifier: Modifier, viewModel: LoginViewModel) {
+    fun Login(modifier: Modifier, viewModel: LoginViewModel, navController: NavController) {
         val email: String by viewModel.email.observeAsState(initial = "")
         val password: String by viewModel.password.observeAsState(initial = "")
         val isLoginEnabled: Boolean by viewModel.loginEnable.observeAsState(initial = false)
         val isLoading: Boolean by viewModel.isLoading.observeAsState(initial = false)
+        val errorMessage: String? by viewModel.errorMessage.observeAsState()
 
         val coroutineScope = rememberCoroutineScope()
 
@@ -94,30 +93,33 @@ class LoginActivity : ComponentActivity() {
             Column(modifier = modifier) {
                 Spacer(modifier = Modifier.padding(16.dp))
 
-                // Campo para el correo
                 EmailLogin(email = email) { viewModel.onEmailChanged(it) }
                 Spacer(modifier = Modifier.padding(16.dp))
 
-                // Campo para la contraseña
                 PasswordLogin(password = password) { viewModel.onPasswordChanged(it) }
                 Spacer(modifier = Modifier.padding(16.dp))
 
-                // Botón de inicio de sesión
-                LoginButton(isLoginEnabled) {
-                    if (isLoginEnabled) {
-                        coroutineScope.launch {
-                            // Llama a la función en el ViewModel para manejar el inicio de sesión
-                            viewModel.onLoginSelected(email, password)
-                        }
-                    }
+                // Muestra el mensaje de error si existe
+                errorMessage?.let {
+                    Text(text = it, color = Color.Red)
+                    Spacer(modifier = Modifier.height(8.dp))
                 }
 
-                Spacer(modifier = Modifier.padding(16.dp))
+                LoginButton(
+                    loginEnabled = isLoginEnabled,
+                    onLoginSelected = { email, password ->
+                        coroutineScope.launch {
+                            viewModel.onLoginSelected(email, password)
+                        }
+                    },
+                    email = email,
+                    password = password
+                )
 
                 Spacer(modifier = Modifier.padding(16.dp))
 
                 // Opción para ir a la pantalla de registro
-                TextButton(onClick = { /* Navegar a la pantalla de registro */ }) {
+                TextButton(onClick = { navController.navigate("registro") }) {
                     Text(text = "¿No tienes una cuenta? Regístrate")
                 }
             }
@@ -134,7 +136,6 @@ class LoginActivity : ComponentActivity() {
             modifier = Modifier.fillMaxWidth(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
             singleLine = true,
-            maxLines = 1,
             colors = TextFieldDefaults.textFieldColors(
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
@@ -154,7 +155,6 @@ class LoginActivity : ComponentActivity() {
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             visualTransformation = PasswordVisualTransformation(),
             singleLine = true,
-            maxLines = 1,
             colors = TextFieldDefaults.textFieldColors(
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
@@ -164,17 +164,21 @@ class LoginActivity : ComponentActivity() {
     }
 
     @Composable
-    fun LoginButton(loginEnabled: Boolean, onLoginSelected: () -> Unit) {
+    fun LoginButton(
+        loginEnabled: Boolean,
+        onLoginSelected: (String, String) -> Unit,
+        email: String,
+        password: String
+    ) {
         Button(
-            onClick = { onLoginSelected() },
+            onClick = { onLoginSelected(email, password) },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(0xFF65C552),
                 disabledContainerColor = Color(0xFF89AC82),
-                contentColor = Color.White,
-                disabledContentColor = Color.White
+                contentColor = Color.White
             ),
             enabled = loginEnabled
         ) {
@@ -182,3 +186,4 @@ class LoginActivity : ComponentActivity() {
         }
     }
 }
+
