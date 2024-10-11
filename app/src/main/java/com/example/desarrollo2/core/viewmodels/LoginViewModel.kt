@@ -42,7 +42,7 @@ class LoginViewModel : ViewModel() {
         validateLogin()
     }
 
-    // Método para validar si el inicio de sesión está habilitado
+    // Método para validar si el inicio de sesión está habilitado // boton
     private fun validateLogin() {
         _loginEnable.value = !(_email.value.isNullOrEmpty() || _password.value.isNullOrEmpty())
     }

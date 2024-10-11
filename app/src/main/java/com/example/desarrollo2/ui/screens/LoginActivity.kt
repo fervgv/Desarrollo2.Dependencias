@@ -1,8 +1,10 @@
 package com.example.desarrollo2.ui.screens
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -10,11 +12,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
@@ -26,6 +34,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
@@ -71,6 +80,26 @@ class LoginActivity : ComponentActivity() {
                 .fillMaxSize()
                 .padding(16.dp)
         ) {
+            // Botón circular en la esquina superior izquierda
+            val context = LocalContext.current
+            IconButton(
+                onClick = {
+                    val intent = Intent(context, MainActivity::class.java)
+                    context.startActivity(intent)
+                },
+                modifier = Modifier
+                    .align(Alignment.TopStart)
+                    .size(48.dp)
+                    .background(Color.Gray, CircleShape)  // Ajustar estilo del botón
+            ) {
+                Icon(
+                    imageVector = Icons.Default.ArrowBack,  // Flecha de regreso
+                    contentDescription = "Volver a la pantalla principal",
+                    tint = Color.White  // Color del icono
+                )
+            }
+
+            // Contenido principal de la pantalla de inicio de sesión
             Login(Modifier.align(Alignment.Center), viewModel, navController)
         }
     }
@@ -84,6 +113,7 @@ class LoginActivity : ComponentActivity() {
         val errorMessage: String? by viewModel.errorMessage.observeAsState()
 
         val coroutineScope = rememberCoroutineScope()
+        val context = LocalContext.current  // Obteniendo el contexto actual
 
         if (isLoading) {
             Box(Modifier.fillMaxSize()) {
@@ -119,7 +149,10 @@ class LoginActivity : ComponentActivity() {
                 Spacer(modifier = Modifier.padding(16.dp))
 
                 // Opción para ir a la pantalla de registro
-                TextButton(onClick = { navController.navigate("registro") }) {
+                TextButton(onClick = {
+                    val intent = Intent(context, RegistroActivity::class.java)
+                    context.startActivity(intent)
+                }) {
                     Text(text = "¿No tienes una cuenta? Regístrate")
                 }
             }
