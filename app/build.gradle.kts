@@ -5,6 +5,7 @@ plugins {
     id("com.google.gms.google-services") // Firebase
     id("com.google.dagger.hilt.android") // Hilt
     kotlin("kapt") // Agrega el plugin Kapt aquí
+    alias(libs.plugins.crashlytics)
 
 }
 
@@ -17,7 +18,7 @@ android {
         minSdk = 24
         targetSdk = 34
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -88,11 +89,11 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     // Firebase BOM and Services
-    implementation(platform("com.google.firebase:firebase-bom:33.4.0"))
-    implementation("com.google.firebase:firebase-auth-ktx")
-    implementation("com.google.firebase:firebase-database-ktx")
-    implementation("com.google.firebase:firebase-messaging-ktx")
-    implementation("com.google.firebase:firebase-analytics-ktx")
+    //implementation(platform("com.google.firebase:firebase-bom:33.4.0"))
+    //implementation("com.google.firebase:firebase-auth-ktx")
+    //implementation("com.google.firebase:firebase-database-ktx")
+    //implementation("com.google.firebase:firebase-messaging-ktx")
+    //implementation("com.google.firebase:firebase-analytics-ktx")
 
 
     // Dagger Hilt
@@ -117,11 +118,18 @@ dependencies {
     implementation("com.google.android.gms:play-services-location:21.3.0")
 
     //navegacion entre pantallas de compose
-    implementation ("androidx.navigation:navigation-compose:2.7.2")
+    //implementation ("androidx.navigation:navigation-compose:2.7.2")
 
     // Verifica la última versión disponible
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3") // Verifica la última versión disponible
 
-
+    implementation (platform(libs.firebase.bom))
+    implementation (libs.firebase.crashlitics)
+    implementation (libs.firebase.auth)
+    implementation (libs.androidx.navigation.compose)
+    implementation (libs.firebase.firestore)
+    implementation (libs.coil)
+    implementation (libs.firebase.realtime)
+    implementation(libs.firebase.config)
 
 }

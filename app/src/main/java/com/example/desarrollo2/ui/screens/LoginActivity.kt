@@ -1,4 +1,5 @@
 package com.example.desarrollo2.ui.screens
+
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -49,7 +50,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 
-
+//esto no se esta ocupando
 @AndroidEntryPoint
 class LoginActivity : ComponentActivity() {
     private val loginViewModel: LoginViewModel by viewModels()

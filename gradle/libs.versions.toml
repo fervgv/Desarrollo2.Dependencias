@@ -13,6 +13,12 @@ appcompat = "1.7.0"
 material = "<version>"
 runtimeLivedata = "1.7.3"
 
+firebaseBom = "33.1.1"
+services = "4.4.2"
+crashlytics = "3.0.2"
+navigationCompose = "2.7.7"
+coil = "2.7.0"
+
 [libraries]
 androidx-compose-ui-ui7 = { module = "androidx.compose.ui:ui", version.ref = "androidxComposeUiUi4" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -34,7 +40,21 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "androidxComposeUiUi4" }
 androidx-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "runtimeLivedata" }
 
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-crashlitics = { module = "com.google.firebase:firebase-crashlytics" }
+firebase-auth = { module = "com.google.firebase:firebase-auth-ktx" }
+firebase-firestore = { module = "com.google.firebase:firebase-firestore" }
+firebase-realtime = { module = "com.google.firebase:firebase-database-ktx" }
+firebase-config = { module = "com.google.firebase:firebase-config-ktx" }
+
+coil = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
+
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+
+googleServices = { id = "com.google.gms.google-services", version.ref = "services" }
+crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "crashlytics" }
 

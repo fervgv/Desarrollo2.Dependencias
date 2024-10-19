@@ -1,5 +1,6 @@
 package com.example.desarrollo2.ui.screens
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -38,6 +39,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -46,21 +48,7 @@ import com.example.desarrollo2.core.viewmodels.RegistroViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-//Detalles para diseño sofi:
-//-Terminar RegistroActivity
-//-Hacer pantallas (con navegacion entre pantallas)
-//-Añadir pantalla de contacto de emergencia:
-//-Nombre o nickname , email, N° de telefono.
-//-1Boton para guardar (que estara conectado con la BD)
-//-1 Botón para insertar
-//-1 Botón para borrar
-//-1 Botón para editar (update)
-//-1 Select que muestre los contactos que ya estan ingresados (puede ser boton o function , lo que sea pero que se muestren)
-//
-//-Pantalla principal:
-//- Implementación de mapa o Mostrar resultado API Latitud/Longitud
-//- Boton
-//- Menu con 3 opciones
+//esto no se esta ocupando
 
 @AndroidEntryPoint
 class RegistroActivity : ComponentActivity()  {
@@ -134,7 +122,8 @@ class RegistroActivity : ComponentActivity()  {
         val isLoading: Boolean by viewModel.isLoading.observeAsState(initial = false)
         val errorMessage: String? by viewModel.errorMessage.observeAsState(initial = null)
 
-        val coroutineScope = rememberCoroutineScope()
+        // Obtén el contexto actual de la actividad
+        val context = LocalContext.current
 
         if (isLoading) {
             Box(Modifier.fillMaxSize()) {
@@ -165,18 +154,14 @@ class RegistroActivity : ComponentActivity()  {
                     )
                 }
 
-                RegisterButton(isRegisterEnabled) {
-                    // Al hacer clic en el botón, valida los campos
-                    viewModel.validateFields(name, email, password, confirmPassword, nickname, phoneNumber)
-
-                    // Si está habilitado, procede con el registro
-                    if (isRegisterEnabled) {
-                        coroutineScope.launch {
-                            viewModel.onRegisterSelected(name, email, password, confirmPassword, nickname, phoneNumber)
-                            // Manejar resultados de registro aquí (éxito/error)
-                        }
-                    }
-                }
+                // Usamos el contexto aquí para redirigir a AddContactActivity
+                RegisterButton(
+                    registerEnabled = isRegisterEnabled,
+                    onRegisterSelected = {
+                        // Aquí puedes añadir la lógica adicional si necesitas ejecutar algo al presionar el botón
+                    },
+                    context = context // Pasamos el contexto actual
+                )
             }
         }
     }
@@ -298,9 +283,12 @@ class RegistroActivity : ComponentActivity()  {
     }
 
     @Composable
-    fun RegisterButton(registerEnabled: Boolean, onRegisterSelected: () -> Unit) {
+    fun RegisterButton(registerEnabled: Boolean, onRegisterSelected: () -> Unit, context: Context) {
         Button(
-            onClick = { onRegisterSelected() },
+            onClick = {
+                val intent = Intent(context, AddContactActivity::class.java)
+                context.startActivity(intent)
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp),
