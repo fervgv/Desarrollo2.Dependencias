@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "676664798779",
+    "firebase_url": "https://fir-curso-97f5a-default-rtdb.firebaseio.com",
+    "project_id": "fir-curso-97f5a",
+    "storage_bucket": "fir-curso-97f5a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:676664798779:android:3cbd023462cbee549a761e",
+        "android_client_info": {
+          "package_name": "com.example.cursofirebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOfSRMFvVaWRJ4mqVErNlfOAFqz4X0g1o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:676664798779:android:fe48fc04a6ce92509a761e",
+        "android_client_info": {
+          "package_name": "com.example.desarrollo2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOfSRMFvVaWRJ4mqVErNlfOAFqz4X0g1o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
